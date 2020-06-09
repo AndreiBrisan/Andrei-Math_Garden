@@ -11,11 +11,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
-
-    </script>
+   
+    <!-- Javascript files -->
     <script src="vendor/opencv.js"></script>
-
-    <!-- TODO: Add Javascript files here -->
     <script src="drawing.js"></script>
     <script src="processing.js"></script>
     <script src="maths.js"></script>
@@ -26,11 +24,11 @@
 
   <div class='container'>
 
-    <!-- TODO: Add title here -->
+    <!-- Add title -->
     <h1 id="title">Math Garden</h1>
     <h2 id='question'><span id='n1'>3</span> + <span id='n2'>2</span> = </h2>
 
-    <!-- TODO: Add a drawing canvas here -->
+    <!-- Add a drawing canvas -->
     <canvas id="my-canvas" width="150" height="150"></canvas>    
 
   </div>
@@ -39,9 +37,8 @@
     <button id='checkAnswer' class='btn' value='Check'>Check Answer</button>
   </div>
 
-  <!-- TODO: Set up TF model and drawing logic-->
+  <!-- Set up TF model and drawing logic-->
   <script>
-
       loadModel();
       prepareCanvas();
       nextQuestion();
@@ -51,7 +48,6 @@
           checkAnswer();
           clearCanvas();
           nextQuestion();
-
       });
 
   </script>
