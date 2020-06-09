@@ -80,9 +80,9 @@ function predictImage() {
     // console.log(tf.memory());
 
     // Testing only
-    // const outputCanvas = document.createElement('CANVAS');
-    // cv.imshow(outputCanvas, image);
-    // document.body.appendChild(outputCanvas);
+    const outputCanvas = document.createElement('CANVAS');
+    cv.imshow(outputCanvas, image);
+    document.body.appendChild(outputCanvas);
 
     // cleanup
     image.delete();
