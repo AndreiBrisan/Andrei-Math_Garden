@@ -5,15 +5,13 @@ async function loadModel() {
       }
 
 function predictImage() {
-    // console.log('processing...');
-
     let image = cv.imread(canvas);
     cv.cvtColor(image, image, cv.COLOR_RGB2GRAY, 0);
     cv.threshold(image, image, 175, 255, cv.THRESH_BINARY);
 
     let contours = new cv.MatVector();
     let hierarchy = new cv.Mat();
-    // You can try more different parameters
+
     cv.findContours(image, contours, hierarchy, cv.RETR_CCOMP, cv.CHAIN_APPROX_SIMPLE);
 
     let cnt = contours.get(0);
@@ -27,13 +25,11 @@ function predictImage() {
         height = 20;
         const scaleFactor = image.rows / height;
         width = Math.round(image.cols / scaleFactor);
-
     }
     else {
         width = 20;
         const scaleFactor = image.cols / width;
         height = Math.round(image.rows / scaleFactor);
-
     }
 
     let newSize = new cv.Size(width, height);
@@ -43,8 +39,6 @@ function predictImage() {
     const RIGHT = Math.floor(4 + (20 - width) / 2);
     const TOP = Math.ceil(4 + (20 - height) / 2);
     const BOTTOM = Math.floor(4 + (20 - height) / 2);
-
-    // console.log('Top:' + TOP + ' BOTTOM:' + BOTTOM + ' LEFT:' + LEFT + ' RIGHT:' + RIGHT);
 
     const BLACK = new cv.Scalar(0, 0, 0, 0);
     cv.copyMakeBorder(image, image, TOP, BOTTOM, LEFT, RIGHT, cv.BORDER_CONSTANT, BLACK);
@@ -60,7 +54,6 @@ function predictImage() {
     const X_SHIFT = Math.round(image.cols / 2.0 - cx);
     const Y_SHIFT = Math.round(image.rows / 2.0 - cy);
 
-
     newSize = new cv.Size(image.cols, image.rows);
     const M = cv.matFromArray(2, 3, cv.CV_64FC1, [1, 0, X_SHIFT, 0, 1, Y_SHIFT]);
     cv.warpAffine(image, image, M, newSize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, BLACK);
@@ -73,23 +66,12 @@ function predictImage() {
         return item / 255.0;
     });
 
-    // console.log('Scaled array: ' + pixelValues);
-
     const X = tf.tensor([pixelValues]);
-    // console.log('Shape of ensor: ' + X.shape);
-    // console.log('dtype of Tensor: ' + X.dtype);
 
     result = model.predict(X);
     result.print();
 
     const output = result.dataSync()[0];
-
-    // console.log(tf.memory());
-
-    // Testing only
-    // const outputCanvas = document.createElement('CANVAS');
-    // cv.imshow(outputCanvas, image);
-    // document.body.appendChild(outputCanvas);
 
     // cleanup
     image.delete();
